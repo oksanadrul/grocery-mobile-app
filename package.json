@@ -1,22 +1,40 @@
 {
-  "name": "test-task",
+  "name": "grocery-mobile-app",
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "server": "json-server --watch db.json --port 3001 --host 0.0.0.0",
+    "dev": "concurrently \"npm run server\" \"npm start\"",
+    "start:staging": "EXPO_PUBLIC_VARIANT=staging expo start",
+    "start:production": "EXPO_PUBLIC_VARIANT=production expo start",
+    "export:staging": "EXPO_PUBLIC_VARIANT=staging expo export",
+    "export:production": "EXPO_PUBLIC_VARIANT=production expo export"
   },
   "dependencies": {
+    "@gluestack-style/react": "1.0.57",
+    "@gluestack-ui/config": "1.1.20",
+    "@gluestack-ui/themed": "1.1.73",
+    "@tanstack/react-query": "5.85.5",
     "expo": "~53.0.22",
     "expo-status-bar": "~2.2.3",
+    "formik": "2.4.6",
     "react": "19.0.0",
-    "react-native": "0.79.6"
+    "react-native": "0.79.6",
+    "react-native-safe-area-context": "5.6.1",
+    "react-native-svg": "15.12.1",
+    "yup": "1.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@types/react": "~19.0.10",
+    "@types/react-native": "0.72.8",
+    "concurrently": "9.2.1",
+    "json-server": "1.0.0-beta.3",
+    "react-dom": "19.0.0",
     "typescript": "~5.8.3"
   },
   "private": true

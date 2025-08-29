@@ -35,3 +35,13 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# Project specific
+server.log
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
