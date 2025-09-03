@@ -10,6 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useGroceryItems } from "../hooks/useGroceryItems";
 import { GroceryItemCard } from "../components/shared/GroceryItemCard";
 import { AddItemForm } from "../components/AddItemForm";
+import { GroceryItem } from "../types";
 
 export const GroceryListScreen: React.FC = () => {
   const { data: groceryItems } = useGroceryItems();
@@ -18,10 +19,20 @@ export const GroceryListScreen: React.FC = () => {
     if (!groceryItems) {
       return { boughtItems: [], unboughtItems: [] };
     }
+    const boughtItems: GroceryItem[] = [];
+    const unboughtItems: GroceryItem[] = [];
+
+    groceryItems.forEach((item) => {
+      if (item.bought) {
+        boughtItems.push(item);
+      } else {
+        unboughtItems.push(item);
+      }
+    });
 
     return {
-      boughtItems: groceryItems.filter((item) => item.bought),
-      unboughtItems: groceryItems.filter((item) => !item.bought),
+      boughtItems,
+      unboughtItems,
     };
   }, [groceryItems]);
 

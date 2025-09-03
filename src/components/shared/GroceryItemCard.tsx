@@ -38,8 +38,7 @@ export const GroceryItemCard: React.FC<GroceryItemCardProps> = ({ item }) => {
     amount: item.amount,
   };
 
-  const handleToggleBought = () => {
-    // Find other items with the same title (case-insensitive), excluding the current item
+  function upadteItem(item: GroceryItem) {
     const otherItemsWithSameTitle = groceryItems.filter(
       (otherItem) =>
         otherItem.id !== item.id &&
@@ -54,7 +53,7 @@ export const GroceryItemCard: React.FC<GroceryItemCardProps> = ({ item }) => {
       updateMutation
         .mutateAsync({
           id: targetItem.id,
-          amount: targetItem.amount + item.amount,
+          amount: (targetItem.amount ?? 0) + (item.amount ?? 0),
         })
         .then(() => {
           // Delete after update completes
@@ -64,7 +63,7 @@ export const GroceryItemCard: React.FC<GroceryItemCardProps> = ({ item }) => {
           // Fallback to just toggling if consolidation fails
           updateMutation.mutate({
             id: item.id,
-            bought: !item.bought,
+            bought: item && !item.bought,
           });
         });
     } else {
@@ -74,14 +73,14 @@ export const GroceryItemCard: React.FC<GroceryItemCardProps> = ({ item }) => {
         bought: !item.bought,
       });
     }
+  }
+
+  const handleToggleBought = () => {
+    upadteItem(item);
   };
 
   const handleSaveEdit = (values: GroceryItemFormValues) => {
-    updateMutation.mutate({
-      id: item.id,
-      title: values.title.trim(),
-      amount: values.amount || 0,
-    });
+    upadteItem({ ...item, ...values });
     setIsEditing(false);
   };
 

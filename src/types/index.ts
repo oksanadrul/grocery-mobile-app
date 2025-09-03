@@ -1,7 +1,7 @@
 export interface GroceryItem {
   id: string;
   title: string;
-  amount: number;
+  amount: number | null;
   bought: boolean;
   createdAt: string;
 }
